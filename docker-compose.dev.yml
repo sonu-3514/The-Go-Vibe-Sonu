@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongodb-dev
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data/mongodb:/data/db
+    command: mongod --bind_ip_all
+    user: "${UID:-1000}:${GID:-1000}"  # Use current user's UID/GID
+    networks:
+      - go-vibe-dev-network
+
+  redis:
+    image: redis:latest
+    container_name: redis-dev
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./data/redis:/data
+    user: "${UID:-1000}:${GID:-1000}"  # Use current user's UID/GID
+    networks:
+      - go-vibe-dev-network
+
+networks:
+  go-vibe-dev-network:
+    driver: bridge

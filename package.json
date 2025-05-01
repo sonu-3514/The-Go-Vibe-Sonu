@@ -1,0 +1,37 @@
+{
+  "name": "the-go-vibe-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "NODE_ENV=development nodemon src/app.js",
+    "dev:docker": "NODE_ENV=development USE_DOCKER_DB=true nodemon src/app.js",
+    "db:start": "node scripts/docker-helper.js start-db",
+    "db:stop": "node scripts/docker-helper.js stop-db",
+    "db:status": "node scripts/docker-helper.js status",
+    "docker:logs": "node scripts/docker-helper.js logs",
+    "docker:up": "node scripts/docker-helper.js compose-up"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "jest": "^29.7.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.13.2",
+    "morgan": "^1.10.0",
+    "supertest": "^7.1.0",
+    "twilio": "^5.5.2",
+    "validator": "^13.15.0",
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

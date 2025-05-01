@@ -1,0 +1,93 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: the-go-vibe-backend
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      TZ: Asia/Kolkata
+      NODE_ENV: production
+      PORT: 3000
+      USE_DOCKER_DB: true
+      # Auth
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN}
+      # Twilio
+      REDACTED: ${REDACTED}
+      TWILIO_AUTH_TOKEN: ${TWILIO_AUTH_TOKEN}
+      TWILIO_PHONE_NUMBER: ${TWILIO_PHONE_NUMBER}
+      # Database
+      MONGODB_URI: mongodb://root:example@mongo:27017/uber-rapido?authSource=admin
+      # New Ride Features
+      GOOGLE_MAPS_API_KEY: ${GOOGLE_MAPS_API_KEY}
+      PREMIUM_RATE_PER_KM: ${PREMIUM_RATE_PER_KM}
+      TAXI_RATE_PER_KM: ${TAXI_RATE_PER_KM}
+      ELECTRIC_RATE_PER_KM: ${ELECTRIC_RATE_PER_KM}
+      MINI_RATE_PER_KM: ${MINI_RATE_PER_KM}
+      # Redis
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      mongo:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    command: nodemon src/app.js  
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    networks:
+      - go-vibe-network
+
+  mongo:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - ./data/mongodb:/data/db  # Store MongoDB data in project directory
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - go-vibe-network
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - ./data/redis:/data  # Store Redis data in project directory
+    networks:
+      - go-vibe-network
+
+# Replace named volumes with local directories
+# volumes:
+#   mongodb-data:
+#   redis_data:
+
+networks:
+  go-vibe-network:
+    driver: bridge
