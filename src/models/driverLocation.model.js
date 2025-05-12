@@ -21,10 +21,14 @@ const driverLocationSchema = new mongoose.Schema({
         type: Boolean,
         default: true
     },
+    isActive: {
+        type: Boolean,
+        default: true
+    },
     vehicleType: {
         type: String,
-        enum: ['bike', 'car', 'auto', 'premium'],
-        required: true
+        enum: ['Rickshaw', 'Mini', 'Premium', 'Premium+'],
+        default: 'Mini'
     },
     lastUpdated: {
         type: Date,
@@ -34,8 +38,8 @@ const driverLocationSchema = new mongoose.Schema({
     timestamps: true
 });
 
-// Create 2dsphere index for geospatial queries
-driverLocationSchema.index({ 'location.coordinates': '2dsphere' });
+// Create the 2dsphere index for geospatial queries
+driverLocationSchema.index({ location: '2dsphere' });
 
 const DriverLocation = mongoose.model('DriverLocation', driverLocationSchema);
 

@@ -56,10 +56,13 @@ exports.verifyOTP = async (req, res) => {
 
         // Create and sign JWT token
         const token = jwt.sign(
-            { id: result.driver._id },
+            {
+              id: driver._id,
+              role: 'driver'  // Must be exactly this string
+            },
             process.env.JWT_SECRET,
-            { expiresIn: process.env.JWT_EXPIRES_IN || '30d' }
-        );
+            { expiresIn: '24h' }
+          );
 
         // Return success with token and registration status
         return res.status(200).json({

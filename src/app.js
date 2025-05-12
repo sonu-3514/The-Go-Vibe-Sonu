@@ -1,97 +1,115 @@
 const express = require('express');
+const http = require('http');
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+const morgan = require('morgan');
 const cors = require('cors');
-const connectDB = require('./config/db');
-const errorHandler = require('./middlewares/error.middleware');
-const routes = require('./routes');
+const helmet = require('helmet');
 const logger = require('./utils/logger');
+const { initSocketIO } = require('./utils/socket.util');
+const connectDB = require('./config/db');
+const rideRoutes = require('./routes/ride.routes');
 const driverRoutes = require('./routes/driver.routes');
+const userRoutes = require('./routes/user.routes');
+const authRoutes = require('./routes/auth.routes');
 const Geofence = require('./models/geofence.model');
+const RideController = require('./controllers/ride.controller');
+const cron = require('node-cron');
 
-require('dotenv').config();
+dotenv.config();
 
-// Create Express app
+// Optional: Enable Mongoose debug logging to diagnose index issues (remove after testing)
+mongoose.set('debug', true);
+
 const app = express();
+const server = http.createServer(app);
+initSocketIO(server);
 
-// Middleware
 app.use(cors());
+app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 if (process.env.NODE_ENV === 'development') {
-    app.use(require('morgan')('dev', { stream: logger.stream }));
+  app.use(morgan('dev'));
+} else {
+  app.use(morgan('combined', {
+    stream: { write: (message) => logger.info(message.trim()) },
+  }));
 }
 
-// Connect to database
-connectDB();
-
-// Health check route
 app.get('/health', async (req, res) => {
   try {
-    // Check database connection
     if (mongoose.connection.readyState === 1) {
-      // Check if database is responding
       await mongoose.connection.db.admin().ping();
       return res.status(200).json({ status: 'UP', database: 'Connected' });
-    } else {
-      return res.status(500).json({ 
-        status: 'DOWN', 
-        database: 'Disconnected',
-        readyState: mongoose.connection.readyState
-      });
     }
+    return res.status(500).json({
+      status: 'DOWN',
+      database: 'Disconnected',
+      readyState: mongoose.connection.readyState,
+    });
   } catch (error) {
     logger.error('Health check failed:', error);
-    return res.status(500).json({ 
-      status: 'DOWN', 
+    return res.status(500).json({
+      status: 'DOWN',
       error: error.message,
-      database: 'Error'
+      database: 'Error',
     });
   }
 });
 
-// Routes - use only one of these approaches
-app.use('/api/v1', routes);  // This already includes driver routes from index.js
-// app.use('/api/v1/drivers', driverRoutes);  // Comment this out to prevent duplicate routes
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/drivers', driverRoutes);
+app.use('/api/v1/rides', rideRoutes);
 
-// Error handling middleware
-app.use(errorHandler);
-
-// 404 handler
-app.use((req, res) => {
-    res.status(404).json({
-        success: false,
-        message: 'API endpoint not found'
-    });
+app.use((err, req, res, next) => {
+  logger.error('Unhandled error:', err);
+  res.status(500).json({
+    success: false,
+    message: 'Something went wrong',
+    error: process.env.NODE_ENV === 'development' ? err.message : 'Server error',
+  });
 });
 
-// Handle unhandled promise rejections
-process.on('unhandledRejection', (err, promise) => {
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    message: 'API endpoint not found',
+  });
+});
+
+process.on('unhandledRejection', (err) => {
   logger.error(`Unhandled Promise Rejection: ${err.message}`);
   logger.error(err.stack);
 });
 
-const PORT = process.env.PORT || 3000;
-
-// Connect to DB and start server
 const startServer = async () => {
   try {
-    // Connect to MongoDB
     await connectDB();
-    
-    // Initialize geofences
     await initGeofences();
-    
-    // Start the server only after DB connection is established
-    const server = app.listen(
-      PORT,
-      () => logger.info(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
+
+    const serverInstance = server.listen(
+      process.env.PORT || 3000,
+      () => logger.info(`Server running in ${process.env.NODE_ENV} mode on port ${process.env.PORT || 3000}`)
     );
-    
-    // Graceful shutdown for Docker
+
+    // Schedule cleanupExpiredRides every 5 minutes
+    cron.schedule('*/5 * * * *', async () => {
+      try {
+        const count = await RideController.cleanupExpiredRides();
+        if (count > 0) {
+          logger.info(`Cron job: Marked ${count} rides as expired`);
+        }
+      } catch (error) {
+        logger.error('Cron job error in cleanupExpiredRides:', error);
+      }
+    });
+
     process.on('SIGTERM', () => {
       logger.info('SIGTERM received. Shutting down gracefully...');
-      server.close(() => {
+      serverInstance.close(() => {
         logger.info('Server closed.');
         mongoose.connection.close(false, () => {
           logger.info('MongoDB connection closed.');
@@ -99,24 +117,19 @@ const startServer = async () => {
         });
       });
     });
-    
-    return server;
+
+    return serverInstance;
   } catch (err) {
     logger.error(`Error starting server: ${err.message}`);
     process.exit(1);
   }
 };
 
-// You can add this function to app.js or create a new file called initGeofence.js
 async function initGeofences() {
   try {
-    // Only create if no geofences exist
     const count = await Geofence.countDocuments();
-    
     if (count === 0) {
       logger.info('Initializing sample geofences...');
-      
-      // Create sample geofence areas
       const sampleGeofences = [
         {
           name: 'Main Service Area',
@@ -124,9 +137,9 @@ async function initGeofences() {
           type: 'service',
           location: {
             type: 'Point',
-            coordinates: [77.5946, 12.9716] // Example: Bangalore center
+            coordinates: [77.5946, 12.9716],
           },
-          radius: 10000 // 10km
+          radius: 10000,
         },
         {
           name: 'Restricted Zone',
@@ -134,9 +147,9 @@ async function initGeofences() {
           type: 'restricted',
           location: {
             type: 'Point',
-            coordinates: [77.6100, 12.9800] // Example: Some restricted area
+            coordinates: [77.6100, 12.9800],
           },
-          radius: 2000 // 2km
+          radius: 2000,
         },
         {
           name: 'High Demand Zone',
@@ -144,13 +157,12 @@ async function initGeofences() {
           type: 'surge',
           location: {
             type: 'Point',
-            coordinates: [77.5800, 12.9700] // Example: High demand area
+            coordinates: [77.5800, 12.9700],
           },
-          radius: 3000, // 3km
-          multiplier: 1.5
-        }
+          radius: 3000,
+          multiplier: 1.5,
+        },
       ];
-      
       await Geofence.insertMany(sampleGeofences);
       logger.info(`Created ${sampleGeofences.length} sample geofences`);
     }
@@ -159,9 +171,8 @@ async function initGeofences() {
   }
 }
 
-// Start server
 if (require.main === module) {
   startServer();
 }
 
-module.exports = app;
+module.exports = { app, server };

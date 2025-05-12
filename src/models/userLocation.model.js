@@ -25,8 +25,7 @@ const userLocationSchema = new mongoose.Schema({
     timestamps: true
 });
 
-// Create 2dsphere index for geospatial queries
-userLocationSchema.index({ 'location.coordinates': '2dsphere' });
+userLocationSchema.index({ location: '2dsphere' });
 
 const UserLocation = mongoose.model('UserLocation', userLocationSchema);
 

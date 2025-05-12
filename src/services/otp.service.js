@@ -1,48 +1,88 @@
-const OTP = require('../models/OTP');
-const { client, twilioPhoneNumber } = require('../config/twilio');
-const { generateOTP } = require('../utils/helpers');
+const OTP = require('../models/otp.model');
+const twilio = require('twilio');
+const client = process.env.TWILIO_SID ? twilio(process.env.TWILIO_SID, process.env.TWILIO_AUTH_TOKEN) : null;
+const twilioPhoneNumber = process.env.TWILIO_PHONE_NUMBER;
+const isConfigured = client && twilioPhoneNumber;
 
-exports.sendOTP = async (mobileNumber) => {
-  // Generate a 6-digit OTP
-  const otp = generateOTP(6);
-  
-  // Save OTP to database
-  await OTP.create({ mobileNumber, otp });
-
-  // Send OTP via Twilio
+const generateOTP = (length) => {
+    return Math.floor(Math.pow(10, length - 1) + Math.random() * 9 * Math.pow(10, length - 1)).toString();
+};
+/**
+ * Send OTP to mobile number
+ * @param {string} mobileNumber - User mobile number
+ * @returns {Object} Result of the operation
+ */exports.sendOTP = async (phone) => {
   try {
-    await client.messages.create({
-      body: `Your OTP for Uber/Rapido app is: ${otp}`,
-      from: twilioPhoneNumber,
-      to: mobileNumber,
-    });
-    return { success: true, message: 'OTP sent successfully' };
-  } catch (error) {
-    console.error('Error sending OTP:', error);
-    throw new Error('Failed to send OTP');
-  }
+    const otp = generateOTP(6);
+    console.log(`Generated OTP for ${phone}: ${otp}`);
+    
+    const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
+    await OTP.deleteMany({ phone });
+    await OTP.create({ phone, otp, expiresAt });
+    
+    let response = {
+        success: true,
+        message: 'OTP generated successfully'
+    };
+    
+    if (process.env.NODE_ENV === 'development') {
+        console.log(`Development mode. OTP: ${otp}`);
+        response.otp = otp;
+        return response;
+    }
+    
+    if (isConfigured && client) {
+        try {
+            const message = await client.messages.create({
+                body: `Your OTP for Go Vibe app is: ${otp}`,
+                from: twilioPhoneNumber,
+                to: phone,
+            });
+            console.log(`OTP sent via SMS to ${phone}`);
+            return response;
+        } catch (twilioError) {
+            console.error('Twilio error:', twilioError);
+            response.otp = otp;
+            response.error = twilioError.message;
+            return response;
+        }
+    } else {
+        console.log('Twilio not configured, returning OTP in response');
+        response.otp = otp;
+        return response;
+    }
+} catch (error) {
+    console.error('Error in sendOTP service:', error);
+    throw new Error(`Failed to send OTP: ${error.message}`);
+}
 };
 
-exports.verifyOTP = async (mobileNumber, otp) => {
-    const otpRecord = await OTP.findOne({ mobileNumber, otp });
+/**
+ * Verify OTP for mobile number
+ * @param {string} phone - User phone number
+ * @param {string} otp - OTP to verify
+ * @returns {Object} Result of the operation
+ */exports.verifyOTP = async (phone, otp) => {
+  try {
+    console.log(`Verifying OTP for ${phone}: ${otp}`);
+    const otpRecord = await OTP.findOne({ phone, otp });
     
     if (!otpRecord) {
-      throw new Error('Invalid OTP');
+        console.warn(`No OTP record found for ${phone} with code ${otp}`);
+        throw new Error('Invalid OTP');
     }
-  
-    // Get current time in IST
-    const now = new Date();
     
-    // Debug logs (temporary)
-    console.log('Current time:', now);
-    console.log('OTP expiry time:', otpRecord.expiresAt);
-    console.log('Time difference (ms):', now - otpRecord.expiresAt);
-  
-    // More lenient expiry check (5 minute buffer)
-    if (otpRecord.expiresAt < new Date(now - (5 * 60 * 1000))) {
-      throw new Error('OTP has expired');
+    const now = new Date();
+    if (now > otpRecord.expiresAt) {
+        console.warn(`OTP has expired for ${phone}`);
+        throw new Error('OTP has expired');
     }
-  
-    await OTP.deleteOne({ _id: otpRecord._id });
+    
+    await OTP.deleteMany({ phone });
+    console.log(`OTP verified successfully for ${phone}`);
     return { success: true, message: 'OTP verified successfully' };
-  };
+} catch (error) {
+    console.error('Error verifying OTP:', error);
+    throw error;
+}
+};

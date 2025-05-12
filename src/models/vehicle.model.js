@@ -1,47 +1,35 @@
 const mongoose = require('mongoose');
 
 const vehicleSchema = new mongoose.Schema({
-  driver: {
+  driverId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Driver',
-    required: true
-  },
-  make: {
-    type: String,
     required: true,
-    trim: true
-  },
-  model: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  year: {
-    type: Number,
-    required: true
-  },
-  color: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  licensePlate: {
-    type: String,
-    required: true,
-    trim: true,
-    unique: true
   },
   vehicleType: {
     type: String,
     required: true,
-    enum: ['sedan', 'suv', 'hatchback', 'mini', 'premium']
+    enum: ['Rickshaw', 'Mini', 'Premium', 'Premium+'],
   },
-  isActive: {
-    type: Boolean,
-    default: true
-  }
-}, { timestamps: true });
+  vehicleModel: {
+    type: String,
+    required: true,
+  },
+  vehicleColor: {
+    type: String,
+    required: true,
+  },
+  vehicleNumber: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  licensePlate: {
+    type: String,
+    required: true,
+    sparse: true,
+    unique: true,
+  },
+});
 
-const Vehicle = mongoose.model('Vehicle', vehicleSchema);
-
-module.exports = Vehicle;
+module.exports = mongoose.model('Vehicle', vehicleSchema);

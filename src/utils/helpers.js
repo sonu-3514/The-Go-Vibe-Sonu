@@ -1,17 +1,14 @@
 /**
- * Generate a random OTP
- * @param {number} length - Length of OTP (default: 6)
- * @returns {string} - Generated OTP
+ * Generate a random numeric OTP of specified length
+ * @param {number} length - Length of OTP
+ * @returns {string} Generated OTP
  */
 exports.generateOTP = (length = 6) => {
-  const digits = '0123456789';
-  let OTP = '';
-  
+  let otp = '';
   for (let i = 0; i < length; i++) {
-    OTP += digits[Math.floor(Math.random() * 10)];
+    otp += Math.floor(Math.random() * 10).toString();
   }
-  
-  return OTP;
+  return otp;
 };
 
 exports.filterObj = (obj, ...allowedFields) => {

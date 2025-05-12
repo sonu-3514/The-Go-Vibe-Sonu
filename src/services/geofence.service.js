@@ -87,92 +87,33 @@ exports.checkPointInGeofence = async (longitude, latitude, type = null) => {
 /**
  * Update location for a user (driver or rider)
  */
-exports.updateLocation = async (userId, userType, longitude, latitude, options = {}) => {
-  try {
-    const locationData = {
-      user: userId,
-      userType,
-      location: {
-        type: 'Point',
-        coordinates: [parseFloat(longitude), parseFloat(latitude)]
-      },
-      lastUpdated: new Date()
-    };
-
-    // Add additional fields if provided
-    if (options.isAvailable !== undefined) locationData.isAvailable = options.isAvailable;
-    if (options.vehicleType) locationData.vehicleType = options.vehicleType;
-    
-    // Update or create location record
-    const location = await Location.findOneAndUpdate(
-      { user: userId, userType },
-      locationData,
-      { new: true, upsert: true }
-    );
-    
-    return location;
-  } catch (error) {
-    logger.error(`Error updating location: ${error.message}`);
-    throw error;
-  }
-};
-
-/**
- * Find nearby drivers within specified radius
- */
-exports.findNearbyDrivers = async (longitude, latitude, options = {}) => {
-  try {
-    const radius = options.radius || 10000; // Default 10km
-    
-    const query = {
-      userType: 'Driver',
-      isAvailable: true,
-      location: {
-        $near: {
-          $geometry: {
-            type: 'Point',
-            coordinates: [parseFloat(longitude), parseFloat(latitude)]
+exports.updateLocation = async (entityId, entityType, longitude, latitude, additionalData = {}) => {
+  const DriverLocation = require('../models/driverLocation.model');
+  const coordinates = [parseFloat(longitude), parseFloat(latitude)];
+  if (entityType === 'Driver') {
+      const update = {
+          location: {
+              type: 'Point',
+              coordinates
           },
-          $maxDistance: radius
-        }
-      }
-    };
-    
-    // Add vehicle type filter if provided
-    if (options.vehicleType) {
-      query.vehicleType = options.vehicleType;
-    }
-    
-    // Find nearby drivers
-    const drivers = await Location.find(query)
-      .populate('user', 'name mobileNumber')
-      .limit(options.limit || 20);
-      
-    // Placeholder logic until we have real data
-    return drivers.length > 0 ? drivers.map(driver => ({
-      driverId: driver.user._id,
-      name: driver.user.name || 'Driver',
-      mobileNumber: driver.user.mobileNumber,
-      vehicleType: driver.vehicleType || 'car',
-      location: {
-        longitude: driver.location.coordinates[0],
-        latitude: driver.location.coordinates[1]
-      },
-      distance: calculateDistance(
-        latitude, longitude,
-        driver.location.coordinates[1],
-        driver.location.coordinates[0]
-      )
-    })) : [];
-  } catch (error) {
-    logger.error(`Error finding nearby drivers: ${error.message}`);
-    return []; // Return empty array on error
+          isAvailable: additionalData.isAvailable ?? true,
+          isActive: additionalData.isActive ?? true,
+          vehicleType: additionalData.vehicleType || 'Mini'
+      };
+      const result = await DriverLocation.findOneAndUpdate(
+          { driver: entityId },
+          update,
+          { upsert: true, new: true }
+      );
   }
+  return true;
 };
-
+      
+ 
 /**
  * Find nearby users within radius (default 10km)
  */
+
 exports.findNearbyUsers = async (longitude, latitude, radiusInKm = 10) => {
     try {
         // Convert km to meters

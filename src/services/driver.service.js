@@ -6,11 +6,6 @@ exports.completeRegistration = async (driverId, driverData) => {
   const { 
     name, 
     email, 
-    vehicleType, 
-    vehicleModel, 
-    vehicleColor, 
-    vehicleNumber,
-    licenseNumber,
     dob,
     gender,
     aadharCard,
@@ -24,7 +19,6 @@ exports.completeRegistration = async (driverId, driverData) => {
     {
       name,
       email,
-      licenseNumber,
       dob,
       gender,
       aadharCard,
@@ -32,12 +26,7 @@ exports.completeRegistration = async (driverId, driverData) => {
       drivingLicense,
       isRegistered: true,
       registrationCompleted: true,
-      vehicle: {
-        type: vehicleType,
-        model: vehicleModel,
-        color: vehicleColor,
-        registrationNumber: vehicleNumber
-      }
+     
     },
     { new: true, runValidators: true }
   );

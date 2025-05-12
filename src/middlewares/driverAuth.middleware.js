@@ -1,43 +1,54 @@
 const jwt = require('jsonwebtoken');
 const Driver = require('../models/driver.model');
-const User = require('../models/user.model');
 
-exports.driverAuthMiddleware = async (req, res, next) => {
+module.exports = async (req, res, next) => {
   try {
-    // 1) Check if token exists
+    // Extract token
+    const authHeader = req.headers.authorization;
     let token;
-    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
-      token = req.headers.authorization.split(' ')[1];
+    
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      token = authHeader.split(' ')[1];
+    } else {
+      // Try to get token from body or query as fallback
+      token = req.body.token || req.query.token;
     }
-
+    
     if (!token) {
-      return res.status(401).json({
-        success: false,
-        message: 'You are not logged in. Please log in to get access.'
+      console.log('No token provided');
+      return res.status(401).json({ 
+        success: false, 
+        message: 'Authentication failed - No token provided' 
       });
     }
-
-    // 2) Verify token
+    
+    console.log('Token received:', token ? 'Yes' : 'No');
+    
+    // Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-    // 3) Check if driver exists
+    console.log('Token decoded:', decoded ? 'Yes' : 'No', 'driverId:', decoded.id);
+    
+    // Find driver
     const driver = await Driver.findById(decoded.id);
     if (!driver) {
-      return res.status(401).json({
-        success: false,
-        message: 'The driver belonging to this token no longer exists.'
+      console.log('Driver not found');
+      return res.status(401).json({ 
+        success: false, 
+        message: 'Authentication failed - Driver not found' 
       });
     }
-
-    // Grant access to protected route
+    
+    // Set driver on request object
     req.driver = driver;
+    req.user = driver; // Add this for compatibility
+    console.log('Driver authenticated:', driver._id);
     next();
   } catch (error) {
-    return res.status(401).json({
-      success: false,
-      message: 'Invalid token or authorization error'
+    console.error('Auth error:', error);
+    return res.status(401).json({ 
+      success: false, 
+      message: 'Authentication failed', 
+      error: error.message 
     });
   }
 };
-
-// ... other middleware functions ...

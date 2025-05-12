@@ -2,49 +2,48 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 
 const userSchema = new mongoose.Schema({
-  mobileNumber: {
+
+  phone: {
     type: String,
-    required: [true, 'Mobile number is required'],
     unique: true,
-    validate: {
-      validator: function (v) {
-        return validator.isMobilePhone(v, 'any', { strictMode: false });
-      },
-      message: 'Please provide a valid mobile number',
-    },
-  },
+    sparse: true,
+    trim: true,
+    required: true
+},
   name: {
     type: String,
-    required: function () {
-      return this.isRegistered;
-    },
     trim: true,
+  },
+  isPhoneVerified: {
+    type: Boolean,
+    default: false,
   },
   email: {
     type: String,
-    required: function () {
-      return this.isRegistered;
-    },
-    unique: true,
+    trim: true,
     lowercase: true,
-    validate: [validator.isEmail, 'Please provide a valid email'],
-  },
-  dob: {
-    type: Date,
-    required: function () {
-      return this.isRegistered;
-    },
+    sparse: true,
+    unique: true,
+    match: [/^\S+@\S+\.\S+$/, 'Please use a valid email address.']
   },
   gender: {
     type: String,
     enum: ['male', 'female', 'other'],
-    required: function () {
-      return this.isRegistered;
-    },
+    default: null,
+  },
+  dob: {
+    type: Date,
+    default: null,
   },
   profilePhoto: {
     type: String,
-    default: '',
+    default: null,
+  },
+  otp: {
+    type: String,
+  },
+  otpExpiry: {
+    type: Date,
   },
   isRegistered: {
     type: Boolean,
@@ -54,11 +53,14 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-});
+  updatedAt: {
+    type: Date,
+    default: Date.now,
+  }},{ timestamps: true });
 
-userSchema.index({ mobileNumber: 1 }, { unique: true });
 
-const User = mongoose.model('User', userSchema);
+// Make email sparse and unique
 
-// Fix: Export the User model directly instead of requiring itself
-module.exports = User;
+// Create a sparse unique index on phone
+
+module.exports = mongoose.model('User', userSchema);

@@ -1,0 +1,216 @@
+2025-05-06 22:46:13 error: Error accepting ride: socketService.getIO is not a function
+2025-05-07 01:31:31 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 01:32:12 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 01:35:01 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 10:44:12 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 11:41:35 error: Error requesting ride: Ride validation failed: estimatedFare: Path `estimatedFare` is required.
+2025-05-07 11:46:42 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 11:47:40 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 11:48:34 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 11:48:42 error: Error requesting ride: Ride validation failed: estimatedFare: Path `estimatedFare` is required.
+2025-05-07 11:51:25 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 12:01:55 error: Error checking expired rides: Ride validation failed: status: `expired` is not a valid enum value for path `status`.
+2025-05-07 12:05:47 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 12:09:04 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 12:13:37 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 13:00:07 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 13:00:49 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 13:04:08 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 13:57:05 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 13:57:55 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 13:59:08 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 14:01:17 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 14:24:46 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 14:27:14 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 14:36:27 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 14:37:11 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 14:42:08 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 14:49:06 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 14:51:11 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 14:54:26 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 14:57:09 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 14:57:48 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 15:06:22 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 15:07:29 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 15:10:32 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 15:11:02 error: Error checking expired rides: Ride validation failed: status: `expired` is not a valid enum value for path `status`.
+2025-05-07 15:14:02 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 15:25:16 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 15:42:46 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 15:43:25 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 15:44:59 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 18:29:43 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 18:36:56 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 18:41:53 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 18:45:54 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 18:49:41 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 18:51:08 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 18:51:16 error: MongoDB connection error: The `uri` parameter to `openUri()` must be a string, got "undefined". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string.
+2025-05-07 18:51:21 error: MongoDB connection error: The `uri` parameter to `openUri()` must be a string, got "undefined". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string.
+2025-05-07 18:51:51 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 18:51:51 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 18:52:34 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 18:57:50 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 21:04:59 error: Error requesting ride: Ride validation failed: paymentMethod: `cash` is not a valid enum value for path `paymentMethod`.
+2025-05-07 21:16:04 error: Error in ride expiration timer for ride 681b7de38adc2f7bddd11ddd: Ride validation failed: status: `expired` is not a valid enum value for path `status`.
+2025-05-07 21:31:11 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 21:32:10 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 21:34:33 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 21:36:05 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 21:38:19 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 21:38:51 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 21:50:58 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 22:11:05 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 22:13:56 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 22:16:25 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 22:21:18 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 22:35:54 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-07 23:53:15 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 00:04:05 error: Error in ride expiration timer for ride 681ba5456dfa61aa5f4dd256: Ride validation failed: status: `expired` is not a valid enum value for path `status`.
+2025-05-08 00:18:27 error: Error in ride expiration timer for ride 681ba8a36dfa61aa5f4dd299: Ride validation failed: status: `expired` is not a valid enum value for path `status`.
+2025-05-08 00:18:45 error: Error checking expired rides: Ride validation failed: status: `expired` is not a valid enum value for path `status`.
+2025-05-08 00:22:27 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 00:30:34 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 10:10:36 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 10:22:55 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 10:23:52 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 10:29:26 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 10:33:12 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 10:34:10 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 10:35:13 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 10:41:31 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 10:46:01 error: Error checking expired rides: Ride validation failed: status: `expired` is not a valid enum value for path `status`.
+2025-05-08 10:46:07 error: Error getting user active ride: Ride validation failed: status: `expired` is not a valid enum value for path `status`.
+2025-05-08 10:49:47 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 10:50:34 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 11:15:11 error: Error in ride expiration timer for ride 681c428f126326867d36fdf6: Ride validation failed: status: `expired` is not a valid enum value for path `status`.
+2025-05-08 11:32:08 error: Error in ride expiration timer for ride 681c4688126326867d36fe26: Ride validation failed: status: `expired` is not a valid enum value for path `status`.
+2025-05-08 11:33:33 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 11:34:25 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 11:43:27 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 11:44:49 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 11:46:46 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 11:50:54 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 11:56:24 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 11:58:08 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 12:02:06 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 12:02:53 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 12:21:55 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 12:38:15 error: Error in ride expiration timer for ride 681c56075c72fab88f15b986: Ride validation failed: status: `expired` is not a valid enum value for path `status`.
+2025-05-08 12:51:45 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 13:56:52 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 13:58:49 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 13:59:26 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 14:01:03 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 14:02:40 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 14:21:10 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 14:22:09 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 14:31:27 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 14:41:37 error: Error in ride expiration timer for ride 681c72f14113cb101d1186e1: Ride validation failed: status: `expired` is not a valid enum value for path `status`.
+2025-05-08 14:41:57 error: Error checking expired rides: Ride validation failed: status: `expired` is not a valid enum value for path `status`.
+2025-05-08 14:48:02 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 14:48:34 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 14:50:44 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 14:52:50 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 14:55:19 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 14:56:28 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 14:57:35 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 14:58:21 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 15:01:07 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 15:02:00 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 15:02:41 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 15:03:20 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 15:14:58 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 15:15:39 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 15:26:12 error: Error in ride expiration timer for ride 681c7d6490d10f2706590cd4: Ride validation failed: status: `expired` is not a valid enum value for path `status`.
+2025-05-08 15:27:26 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 15:45:52 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 15:53:09 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-08 15:53:46 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 15:08:15 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 15:55:04 error: Error in ride expiration timer for ride 681dd5a8e04db54e9bd93306: Ride validation failed: status: `expired` is not a valid enum value for path `status`.
+2025-05-09 15:59:25 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 16:02:22 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 16:04:11 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 16:05:26 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 16:06:19 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 16:07:58 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 16:09:33 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 16:18:00 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 16:19:32 error: Error requesting ride: Cannot read properties of undefined (reading 'address')
+2025-05-09 16:20:20 error: Error requesting ride: Cannot read properties of undefined (reading 'address')
+2025-05-09 16:21:20 error: Error requesting ride: Cannot read properties of undefined (reading 'address')
+2025-05-09 16:31:30 error: Error checking expired rides: Ride validation failed: status: `expired` is not a valid enum value for path `status`.
+2025-05-09 16:37:12 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 16:43:01 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 16:44:41 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 16:59:20 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 17:01:20 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 17:01:55 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 17:02:37 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 17:12:31 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 17:13:58 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 17:14:50 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 17:18:40 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 17:19:26 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 17:28:37 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 17:30:07 error: Error checking expired rides: Ride validation failed: status: `expired` is not a valid enum value for path `status`.
+2025-05-09 17:33:21 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 17:35:00 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 17:46:57 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 17:49:23 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 17:55:33 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 17:56:24 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 17:57:05 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 18:00:39 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 18:01:30 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 18:05:08 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 18:07:41 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 18:17:11 error: Error checking expired rides: Ride validation failed: status: `expired` is not a valid enum value for path `status`.
+2025-05-09 18:22:29 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 18:27:19 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 18:28:24 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 18:29:36 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 18:31:26 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 18:33:45 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 18:34:38 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 18:35:32 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 18:36:06 error: MongoDB connection error: getaddrinfo EAI_AGAIN mongo
+2025-05-09 21:39:02 error: Error updating ride status: Cannot read properties of undefined (reading '_id')
+2025-05-09 21:39:15 error: Error updating ride status: Cannot read properties of undefined (reading '_id')
+2025-05-09 21:39:27 error: Error updating ride status: Cannot read properties of undefined (reading '_id')
+2025-05-10 10:29:58 error: Error estimating fare: Cannot read properties of undefined (reading 'latitude')
+2025-05-10 10:37:28 error: Active pending ride not found:
+2025-05-10 10:38:16 error: Ride ID and driver ID are required
+2025-05-10 10:38:54 error: Active pending ride not found:
+2025-05-10 10:39:37 error: Active pending ride not found:
+2025-05-10 10:40:33 error: Active pending ride not found:
+2025-05-10 10:40:53 error: Invalid status transition:
+2025-05-10 10:41:55 error: Active pending ride not found:
+2025-05-10 10:42:33 error: Cannot cancel ride with status: completed
+2025-05-10 10:50:52 error: Active pending ride not found:
+2025-05-10 11:46:41 error: Active pending or accepted ride not found:
+2025-05-10 11:47:07 error: Ride not found:
+2025-05-10 11:49:46 error: Driver is not assigned to this ride:
+2025-05-10 12:24:58 error: Driver is not currently assigned to this ride:
+2025-05-10 12:25:41 error: Driver is not currently assigned to this ride:
+2025-05-10 12:44:09 error: Error in acceptRide: Transaction numbers are only allowed on a replica set member or mongos
+2025-05-10 12:44:57 error: Error in acceptRide: Transaction numbers are only allowed on a replica set member or mongos
+2025-05-10 12:55:38 error: Error confirming driver: Ride validation failed: status: `confirmed` is not a valid enum value for path `status`.
+2025-05-10 13:52:37 error: Accepted ride not found:
+2025-05-10 13:56:46 error: Cannot cancel ride with status: confirmed
+2025-05-10 14:16:32 error: Error estimating fare: Cannot read properties of undefined (reading 'latitude')
+2025-05-10 14:39:50 error: Error estimating fare: Cannot read properties of undefined (reading 'latitude')
+2025-05-10 15:07:16 error: Geocoding error: Cannot read properties of undefined (reading 'latitude')
+2025-05-10 15:09:12 error: Error requesting ride: Ride validation failed: estimatedFare: Path `estimatedFare` is required.
+2025-05-10 15:35:13 error: Error requesting ride: Ride validation failed: estimatedFare: Path `estimatedFare` is required.
+2025-05-11 00:30:30 error: No user ID found in request
+2025-05-11 00:45:00 error: Ride not found:
+2025-05-11 00:46:26 error: Not authorized to cancel ride
+2025-05-11 00:46:51 error: Driver is not online. Current status: busy
+2025-05-12 10:40:23 error: Ride not found:
+2025-05-12 10:41:11 error: Ride not found:
+2025-05-12 10:41:21 error: Ride not found:
+2025-05-12 10:41:27 error: Ride not found:
+2025-05-12 10:41:44 error: Ride not found:
+2025-05-12 11:05:20 error: Driver is not online. Current status: offline
